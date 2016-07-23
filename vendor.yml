@@ -1,0 +1,5 @@
+vendors:
+- path: github.com/gorilla/context
+  rev: aed02d124ae4a0e94fea4541c8effd05bf0c8296
+- path: github.com/gorilla/mux
+  rev: d391bea3118c9fc17a88d62c9189bb791255e0ef
