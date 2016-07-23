@@ -22,6 +22,7 @@ dependencies:
     - mkdir -p "$GOPATH/bin"
     - cp -r ${HOME}/${CIRCLE_PROJECT_REPONAME} ${GOPATH_BASE}/
     - go get github.com/govend/govend
+    - sudo pip install awscli
 
 test:
   override:
@@ -53,3 +54,6 @@ deployment:
         docker images --no-trunc | awk '/^app/ {print $3}' |
         tee $CIRCLE_ARTIFACTS/docker-image-shasum256.txt
       - docker push ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME}
+
+      # trigger ebs redeploy
+      - aws elasticbeanstalk update-environment --application-name deployer201607231908 --environment-id e-jnxempedwi --version-label deployer-api
