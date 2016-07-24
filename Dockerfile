@@ -5,6 +5,9 @@ RUN adduser --gid 10001 --uid 10001 \
     --disabled-password app
 
 COPY bin/deployer /app/
+RUN mkdir /app/deploymentTests
+ADD deploymentTests /app/deploymentTests/
+
 USER app
 EXPOSE 8080
 WORKDIR /app

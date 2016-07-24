@@ -15,8 +15,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os/exec"
+	"path/filepath"
 	"strings"
 
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/elasticbeanstalk"
 	"github.com/gorilla/mux"
 )
 
@@ -65,7 +70,46 @@ func (dplr *deployer) postWebHook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	go testAndDeploy()
 	w.Write([]byte("OK"))
+}
+
+func testAndDeploy() {
+	testFiles, err := filepath.Glob("/app/deploymentTests/*")
+	if err != nil {
+		panic(err)
+	}
+	for _, testFile := range testFiles {
+		log.Println("Executing test", testFile)
+		out, err := exec.Command(testFile).Output()
+		if err != nil {
+			log.Fatal("Test", testFile, "returned errors:", err)
+		}
+		log.Println("Test", testFile, "succeeded:", out)
+	}
+	deploy()
+}
+
+func deploy() {
+	svc := elasticbeanstalk.New(session.New())
+
+	params := &elasticbeanstalk.UpdateEnvironmentInput{
+		ApplicationName: aws.String("invoicer201605211320"),
+		EnvironmentId:   aws.String("e-curu6awket"),
+		VersionLabel:    aws.String("deployer-api"),
+	}
+	resp, err := svc.UpdateEnvironment(params)
+
+	if err != nil {
+		// Print the error, cast err to awserr.Error to get the Code and
+		// Message from an error.
+		log.Println(err)
+		return
+	}
+
+	// Pretty-print the response data.
+	log.Println("Deploying EBS application:", params)
+	log.Println(resp)
 }
 
 func getHeartbeat(w http.ResponseWriter, r *http.Request) {
