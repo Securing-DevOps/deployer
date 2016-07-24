@@ -58,7 +58,7 @@ func (dplr *deployer) postWebHook(w http.ResponseWriter, r *http.Request) {
 		httpError(w, http.StatusInternalServerError, "Failed to initialize DockerHub Webhook parser")
 		return
 	}
-	log.Println(hookData)
+	log.Printf("%+v", hookData)
 	// This application only accepts containers placed under the
 	// `securingdevops` dockerhub organization. If this wasn't an
 	// example application, we would make the namespacing configurable
@@ -93,7 +93,10 @@ func testAndDeploy() {
 }
 
 func deploy() {
-	svc := elasticbeanstalk.New(session.New())
+	svc := elasticbeanstalk.New(
+		session.New(),
+		&aws.Config{Region: aws.String("us-east-1")},
+	)
 
 	params := &elasticbeanstalk.UpdateEnvironmentInput{
 		ApplicationName: aws.String("invoicer201605211320"),
