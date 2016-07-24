@@ -35,6 +35,7 @@ test:
         github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
     - '[ ! -e bin ] && mkdir bin'
     - cp "$GOPATH_HEAD/bin/${CIRCLE_PROJECT_REPONAME}" bin/deployer
+    - chmod +x deploymentTests/*
     - docker build -t ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} .
 
     # Run GOVEND to check if outdated dependencies are present
