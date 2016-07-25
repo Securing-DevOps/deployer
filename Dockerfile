@@ -8,6 +8,10 @@ COPY bin/deployer /app/
 RUN mkdir /app/deploymentTests
 ADD deploymentTests /app/deploymentTests/
 
+RUN apt-get update
+RUN apt-get -y upgrade
+RUN apt-get install jq
+
 USER app
 EXPOSE 8080
 WORKDIR /app

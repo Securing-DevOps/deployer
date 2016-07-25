@@ -87,7 +87,7 @@ func testAndDeploy() {
 		if err != nil {
 			log.Fatal("Test", testFile, "returned errors:", err)
 		}
-		log.Println("Test", testFile, "succeeded:", out)
+		log.Printf("Test %s succeeded: %s", testFile, out)
 	}
 	deploy()
 }
