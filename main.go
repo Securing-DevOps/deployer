@@ -24,10 +24,7 @@ type deployer struct {
 }
 
 func main() {
-	var (
-		dplr deployer
-		err  error
-	)
+	var dplr deployer
 
 	// register routes
 	r := mux.NewRouter()
