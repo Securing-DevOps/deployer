@@ -66,15 +66,19 @@ func testAndDeploy() {
 	if err != nil {
 		panic(err)
 	}
+	var do_deploy = true
 	for _, testFile := range testFiles {
 		log.Println("Executing test", testFile)
 		out, err := exec.Command(testFile).Output()
 		if err != nil {
 			log.Printf("Test %s failed:\n%s\n%s", testFile, err, out)
+			do_deploy = false
 		}
 		log.Printf("Test %s succeeded: %s", testFile, out)
 	}
-	deploy()
+	if do_deploy {
+		deploy()
+	}
 }
 
 func deploy() {
