@@ -73,7 +73,7 @@ func testAndDeploy() {
 		log.Println("Executing test", testFile)
 		out, err := exec.Command(testFile).Output()
 		if err != nil {
-			log.Fatal("Test", testFile, "returned errors:", err)
+			log.Printf("Test %s failed:\n%s\n%s", testFile, err, out)
 		}
 		log.Printf("Test %s succeeded: %s", testFile, out)
 	}
