@@ -37,7 +37,7 @@ func main() {
 }
 
 func (dplr *deployer) postWebHook(w http.ResponseWriter, r *http.Request) {
-	log.Println("Received webhook")
+	log.Println("Received webhook notification")
 	hookData, err := NewDockerHubWebhookDataFromRequest(r)
 	if err != nil {
 		httpError(w, http.StatusInternalServerError, "Failed to initialize DockerHub Webhook parser")
@@ -56,6 +56,7 @@ func (dplr *deployer) postWebHook(w http.ResponseWriter, r *http.Request) {
 		httpError(w, http.StatusUnauthorized, "Request could not be validated")
 		return
 	}
+	log.Println("Verified notification authenticity")
 
 	go testAndDeploy()
 	w.Write([]byte("OK"))
