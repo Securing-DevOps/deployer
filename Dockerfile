@@ -10,7 +10,7 @@ ADD deploymentTests /app/deploymentTests/
 
 RUN apt-get update
 RUN apt-get -y upgrade
-RUN apt-get install jq
+RUN apt-get -y install jq postgresql-client
 
 USER app
 EXPOSE 8080
