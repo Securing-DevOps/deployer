@@ -24,11 +24,11 @@ components:
           key: environment-name
           value: invoicer-api
 
-    - name: bastion
-      type: ec2
-      tag:
-          key: environment-name
-          value: invoicer-bastion
+#    - name: bastion
+#      type: ec2
+#      tag:
+#          key: environment-name
+#          value: invoicer-bastion
 
 rules:
     - src: 0.0.0.0/0
@@ -43,11 +43,11 @@ rules:
       dst: database
       dport: 5432
 
-    - src: bastion
-      dst: application
-      dport: 22
-
-    - src: bastion
-      dst: database
-      dport: 5432
+#    - src: bastion
+#      dst: application
+#      dport: 22
+#
+#    - src: bastion
+#      dst: database
+#      dport: 5432
 EOF
