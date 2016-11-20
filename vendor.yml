@@ -23,5 +23,3 @@ vendors:
   rev: 3c2572876754c4669ae7417b219f0b30a29b32c7
 - path: github.com/stretchr/testify
   rev: 18a02ba4a312f95da08ff4cfc0055750ce50ae9e
-- path: golang.org/x/net
-  rev: 73058b0420c0c24a7f9ec3eb6f624ac85d2ed035
