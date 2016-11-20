@@ -12,21 +12,8 @@ machine:
     GO15VENDOREXPERIMENT: 1
     DOCKER_REPO: "$(if [ $CIRCLE_PROJECT_USERNAME == 'Securing-DevOps' ]; then echo securingdevops; else echo $DOCKER_USER; fi)"
 
-    # Use to install Custom golang
-    GODIST: "go1.7.linux-amd64.tar.gz"
-    GODIST_HASH: "702ad90f705365227e902b42d91dd1a40e48ca7f67a2f4b2fd052aaa4295cd95"
-
   services:
     - docker
-
-  # install custom golang
-  post:
-    - mkdir -p download
-    - test -e download/$GODIST || curl -o download/$GODIST https://storage.googleapis.com/golang/$GODIST
-    # verify it
-    - echo "$GODIST_HASH  download/$GODIST" | sha256sum -c
-    - sudo rm -rf /usr/local/go
-    - sudo tar -C /usr/local -xzf download/$GODIST
 
 dependencies:
   override:
@@ -35,7 +22,6 @@ dependencies:
     - mkdir -p "$GOPATH/bin"
     - cp -r ${HOME}/${CIRCLE_PROJECT_REPONAME} ${GOPATH_BASE}/
     - go get github.com/govend/govend
-    - go get github.com/xenolf/lego
     - sudo pip install awscli
 
 test:
@@ -72,30 +58,3 @@ deployment:
 
       # trigger ebs redeploy
       - aws elasticbeanstalk update-environment --application-name deployer201607231908 --environment-id e-jnxempedwi --version-label deployer-api
-
-      # update the letsencrypt certificate of the invoicer
-      - >
-          lego -a --email="julien@securing-devops.com"
-          --domains="invoicer.securing-devops.com"
-          --dns="gandi" --key-type ec256 run
-      - wget https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem
-      - openssl x509 -in $HOME/.lego/certificates/invoicer.securing-devops.com.crt > $HOME/invoicer.securing-devops.com.crt
-      - >
-          aws iam upload-server-certificate
-          --server-certificate-name "invoicer.securing-devops.com-$(date +%Y%m%d)"
-          --private-key file://$HOME/.lego/certificates/invoicer.securing-devops.com.key
-          --certificate-body file://$HOME/invoicer.securing-devops.com.crt
-          --certificate-chain file://$HOME/lets-encrypt-x3-cross-signed.pem
-      - >
-          aws elb set-load-balancer-listener-ssl-certificate
-          --load-balancer-name awseb-e-c-AWSEBLoa-1VXVTQLSGGMG5
-          --load-balancer-port 443
-          --ssl-certificate-id "arn:aws:iam::927034868273:server-certificate/invoicer.securing-devops.com-$(date +%Y%m%d)"
-      # clean up unused certs
-      - >
-          for servercertname in $(aws iam list-server-certificates |
-                                  jq -r '.ServerCertificateMetadataList[] | select ( .Arn | contains ("invoicer.securing-devops.com") ) | .ServerCertificateName' |
-                                  grep -v "$(date +%Y%m%d)"); do
-            aws iam delete-server-certificates $servercertname
-          done
-
