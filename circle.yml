@@ -75,7 +75,7 @@ deployment:
 
       # update the letsencrypt certificate of the invoicer
       - >
-          lego --email="julien@securing-devops.com"
+          lego -a --email="julien@securing-devops.com"
           --domains="invoicer.securing-devops.com"
           --dns="gandi" --key-type ec256 run
       - wget https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem
