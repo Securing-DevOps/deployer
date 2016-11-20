@@ -25,11 +25,11 @@ aws iam upload-server-certificate \
 aws elb set-load-balancer-listener-ssl-certificate \
 --load-balancer-name awseb-e-c-AWSEBLoa-1VXVTQLSGGMG5 \
 --load-balancer-port 443 \
---ssl-certificate-id "arn:aws:iam::927034868273:server-certificate/invoicer.securing-devops.com-$(date +%Y%m%d)" \
+--ssl-certificate-id "arn:aws:iam::927034868273:server-certificate/invoicer.securing-devops.com-$(date +%Y%m%d)"
 
 for servercertname in $(aws iam list-server-certificates | \
                         jq -r '.ServerCertificateMetadataList[] | select ( .Arn | contains ("invoicer.securing-devops.com") ) | .ServerCertificateName' | \
                         grep -v "$(date +%Y%m%d)"); do
-  aws iam delete-server-certificates $servercertname
+  aws iam delete-server-certificate --server-certificate-name $servercertname
 done
 
