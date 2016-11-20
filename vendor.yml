@@ -1,12 +1,12 @@
 vendors:
 - path: github.com/aws/aws-sdk-go
-  rev: 4742f4bc1f93f618a2298544cb5f44a5fe91652c
+  rev: a0a042689f81e61e24b16237b502bcbc4a05dfc0
 - path: github.com/davecgh/go-spew
   rev: 346938d642f2ec3594ed81d874461961cd0faa76
 - path: github.com/go-ini/ini
-  rev: 6e4869b434bd001f6983749881c7ead3545887d8
+  rev: 2ba15ac2dc9cdf88c110ec2dc0ced7fa45f5678c
 - path: github.com/gopherjs/gopherjs
-  rev: 6f5a3c4a73badf117936d7d61a046e2fab8e2adb
+  rev: e34a5cd6a1bc7c4fde759f2d3039852fc68b5fcc
 - path: github.com/gorilla/context
   rev: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
 - path: github.com/gorilla/mux
@@ -18,10 +18,10 @@ vendors:
 - path: github.com/pmezard/go-difflib
   rev: 792786c7400a136282c1664665ae0a8db921c6c2
 - path: github.com/smartystreets/assertions
-  rev: 2063fd1cc7c975db70502811a34b06ad034ccdf2
+  rev: e60cfa771e3f4d18723a4119f1833898c9c62066
 - path: github.com/smartystreets/goconvey
-  rev: 9d1f119b4c758f57339d56a1cc8f2e156c0e79ba
+  rev: 3c2572876754c4669ae7417b219f0b30a29b32c7
 - path: github.com/stretchr/testify
-  rev: 976c720a22c8eb4eb6a0b4348ad85ad12491a506
+  rev: 18a02ba4a312f95da08ff4cfc0055750ce50ae9e
 - path: golang.org/x/net
   rev: 73058b0420c0c24a7f9ec3eb6f624ac85d2ed035
