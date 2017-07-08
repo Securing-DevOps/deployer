@@ -46,11 +46,11 @@ echo "API environment $apieid is being created"
 
 # Upload the application version
 aws s3 mb s3://$identifier
-aws s3 cp app-version.json s3://$identifier/
+aws s3 cp app-version-deployer.json s3://$identifier/
 aws elasticbeanstalk create-application-version \
     --application-name "$identifier" \
     --version-label deployer-api \
-    --source-bundle "S3Bucket=$identifier,S3Key=app-version.json" > tmp/$identifier/appversion.json
+    --source-bundle "S3Bucket=$identifier,S3Key=app-version-deployer.json" > tmp/$identifier/appversion.json
 
 # Wait for the environment to be ready (green)
 echo -n "waiting for environment"
