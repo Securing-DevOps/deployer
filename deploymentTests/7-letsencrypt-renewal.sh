@@ -23,7 +23,7 @@ aws iam upload-server-certificate \
 --certificate-chain file://$HOME/lets-encrypt-x3-cross-signed.pem 
 
 aws elb set-load-balancer-listener-ssl-certificate \
---load-balancer-name awseb-e-c-AWSEBLoa-1VXVTQLSGGMG5 \
+--load-balancer-name awseb-e-y-AWSEBLoa-14N2FU8OYHX7I \
 --load-balancer-port 443 \
 --ssl-certificate-id "arn:aws:iam::927034868273:server-certificate/invoicer.securing-devops.com-$(date +%Y%m%d)"
 
