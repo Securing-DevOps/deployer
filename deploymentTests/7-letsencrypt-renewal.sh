@@ -14,13 +14,13 @@ lego -a --email="julien@securing-devops.com" \
 --dns="gandi" --key-type ec256 run
 
 wget https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem
-openssl x509 -in $HOME/.lego/certificates/invoicer.securing-devops.com.crt > $HOME/invoicer.securing-devops.com.crt
+openssl x509 -in .lego/certificates/invoicer.securing-devops.com.crt > invoicer.securing-devops.com.crt
 
 aws iam upload-server-certificate \
 --server-certificate-name "invoicer.securing-devops.com-$(date +%Y%m%d)" \
---private-key file://$HOME/.lego/certificates/invoicer.securing-devops.com.key \
---certificate-body file://$HOME/invoicer.securing-devops.com.crt \
---certificate-chain file://$HOME/lets-encrypt-x3-cross-signed.pem 
+--private-key file://$(pwd)/.lego/certificates/invoicer.securing-devops.com.key \
+--certificate-body file://$(pwd)/invoicer.securing-devops.com.crt \
+--certificate-chain file://$(pwd)/lets-encrypt-x3-cross-signed.pem
 
 aws elb set-load-balancer-listener-ssl-certificate \
 --load-balancer-name awseb-e-y-AWSEBLoa-14N2FU8OYHX7I \
