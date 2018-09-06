@@ -11,7 +11,7 @@ go get -u github.com/xenolf/lego
 
 lego -a --email="julien@securing-devops.com" \
 --domains="invoicer.securing-devops.com" \
---dns="gandi" --key-type ec256 run
+--dns="gandiv5" --key-type ec256 run
 
 wget https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem
 openssl x509 -in .lego/certificates/invoicer.securing-devops.com.crt > invoicer.securing-devops.com.crt
