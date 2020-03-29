@@ -1,0 +1,14 @@
+{
+    "ApplicationVersion": {
+        "ApplicationVersionArn": "arn:aws:elasticbeanstalk:us-east-1:724831181620:applicationversion/deployer202003252347/deployer-api",
+        "ApplicationName": "deployer202003252347",
+        "VersionLabel": "deployer-api",
+        "SourceBundle": {
+            "S3Bucket": "deployer202003252347",
+            "S3Key": "app-version-deployer.json"
+        },
+        "DateCreated": "2020-03-26T02:47:40.842000+00:00",
+        "DateUpdated": "2020-03-26T02:47:40.842000+00:00",
+        "Status": "UNPROCESSED"
+    }
+}
