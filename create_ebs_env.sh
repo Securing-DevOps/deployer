@@ -10,7 +10,7 @@ fail() {
     exit 1
 }
 
-export AWS_DEFAULT_REGION=us-west-2
+export AWS_DEFAULT_REGION=us-east-1
 
 datetag=$(date +%Y%m%d%H%M)
 identifier=deployer$datetag
@@ -30,7 +30,8 @@ aws elasticbeanstalk create-application \
 echo "ElasticBeanTalk application created"
 
 # Get the name of the latest Docker solution stack
-dockerstack="$(aws elasticbeanstalk list-available-solution-stacks | jq -r '.SolutionStacks[]' | grep -i 'Amazon Linux' | grep -i docker | grep -i v2.14.2 | grep -i 18.09.9)"
+dockerstack="$(aws elasticbeanstalk list-available-solution-stacks | \
+    jq -r '.SolutionStacks[]' | grep -P '.+Amazon Linux.+Docker.+' | head -1)"
 
 # Create the EB API environment
 aws elasticbeanstalk create-environment \

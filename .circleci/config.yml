@@ -3,7 +3,7 @@ jobs:
   build:
     # Variable expansion in working_directory not supported at this time
     # You will need to modify the code below to reflect your github account/repo setup
-    working_directory: /go/src/github.com/rogerfdias/deployer
+    working_directory: /go/src/github.com/Securing-DevOps/deployer
     docker:
       - image: circleci/golang:latest
     environment:
@@ -17,7 +17,7 @@ jobs:
 
       - run: echo 'export GOPATH_HEAD="$(echo ${GOPATH}|cut -d ':' -f 1)"' >> $BASH_ENV
       - run: echo 'export GOPATH_BASE="${GOPATH_HEAD}/src/github.com/${CIRCLE_PROJECT_USERNAME}"' >> $BASH_ENV
-      - run: echo 'export DOCKER_REPO="$(if [ ${CIRCLE_PROJECT_USERNAME} == 'rogerfdias' ]; then echo rogerfdias; else echo $DOCKER_USER; fi)"' >> $BASH_ENV
+      - run: echo 'export DOCKER_REPO="$(if [ ${CIRCLE_PROJECT_USERNAME} == 'securingdevops' ]; then echo securingdevops; else echo $DOCKER_USER; fi)"' >> $BASH_ENV
       - run: mkdir -p "${GOPATH_BASE}"
       - run: mkdir -p "${GOPATH_HEAD}/bin"
       - run: go get github.com/govend/govend
@@ -41,4 +41,4 @@ jobs:
                 docker images --no-trunc | awk '/^app/ {print $3}' | sudo tee $CIRCLE_ARTIFACTS/docker-image-shasum256.txt;
                 docker push ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME};
             fi
-            aws elasticbeanstalk update-environment --region us-west-2 --application-name deployer202003302211 --environment-id e-mmivnhdjpf --version-label deployer-api
+            aws elasticbeanstalk update-environment --region us-east-1 --application-name invoicer201707071231 --environment-id e-h4vyur8nup --version-label deployer-api
