@@ -21,6 +21,7 @@ jobs:
       - run: mkdir -p "${GOPATH_BASE}"
       - run: mkdir -p "${GOPATH_HEAD}/bin"
       - run: go get github.com/govend/govend
+      - run: apt-get -y install awscli
 
       - run:
           name: Build application container
