@@ -21,6 +21,7 @@ jobs:
       - run: mkdir -p "${GOPATH_BASE}"
       - run: mkdir -p "${GOPATH_HEAD}/bin"
       - run: go get github.com/govend/govend
+      - run: sudo apt-get -y install jq postgresql-client awscli
 
       - run:
           name: Build application container
