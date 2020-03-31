@@ -47,7 +47,7 @@ func (dplr *deployer) postWebHook(w http.ResponseWriter, r *http.Request) {
 	// This application only accepts containers placed under the
 	// `securingdevops` dockerhub organization. If this wasn't an
 	// example application, we would make the namespacing configurable
-	if hookData.Repository.Namespace != `securingdevops` {
+	if hookData.Repository.Namespace != `rogerfdias` {
 		httpError(w, http.StatusUnauthorized, "Invalid namespace")
 		return
 	}
@@ -115,10 +115,10 @@ func getHeartbeat(w http.ResponseWriter, r *http.Request) {
 // handleVersion returns the current version of the API
 func getVersion(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(fmt.Sprintf(`{
-"source": "https://github.com/Securing-DevOps/deployer",
+"source": "https://github.com/rogerfdias/deployer",
 "version": "%s",
 "commit": "%s",
-"build": "https://circleci.com/gh/Securing-DevOps/deployer/"
+"build": "https://circleci.com/gh/rogerfdias/deployer/"
 }`, version, commit)))
 }
 
