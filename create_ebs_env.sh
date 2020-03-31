@@ -3,7 +3,7 @@
 # requires: pip install awscli awsebcli
 
 # uncomment to debug
-set -x
+#set -x
 
 fail() {
     echo configuration failed
